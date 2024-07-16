@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To do List</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #282c34, #1a1d23);
+      color: #fff;
+    }
+
+    header {
+      background: linear-gradient(to right, #4e54c8, #8f94fb);
+      padding: 10px;
+      text-align: center;
+    }
+
+    section {
+      padding: 20px;
+      text-align: center;
+    }
+
+    video {
+      max-width: 100%;
+      height: auto;
+    }
+
+    textarea {
+      width: 100%;
+      height: 300px;
+      margin-top: 20px;
+      background: #333;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>To do List </h1>
+  </header>
+
+  <section>
+    <h2>To do list in Action</h2>
+    <video loop controls>
+      <source src="ToDoList.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <h2>Code</h2>
+    <textarea readonly>
+      This is the code for the above To do list application this code below doesnt include any of the css files, 
+       you'll be able to access the To do list for any time, and set up your own to do list tasks. 
+     <!--  this is the html 
+      <!DOCTYPE html>
+     <html lang="en">
+     <head>
+         <meta charset="UTF-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <title>To do list</title>
+         <link rel="stylesheet" href="styles.css">
+     </head>
+     <body>
+         <div class="container">
+             <div class="todo-app">
+                 <h2>To-Do List<img src="Images\notepadIcon.png" alt="to-do-icon"> </h2>
+                 <div class="add-todo">
+                     <input type="text" id="inputBox" placeholder="what are you doing today?">
+                     <button onclick="addTask()"> Add</button>
+                 </div>
+                 <ul id="list-container">
+                     <!-- <li class="checked"> Task 1</li>
+                     <li> Task 2</li>
+                     <li> Task 3</li>
+                     <li> Task 4</li> 
+                 </ul>
+             </div>
+         </div> 
+     
+         <script src="script.js"></script>
+     </body>
+     </html>  
+     
+     this is the css
+     const inputBox = document.getElementById("inputBox");
+const listContainer = document.getElementById("list-container");
+
+function addTask(){
+    if(inputBox.value ===''){
+        alert("You must write something");
+    }
+    else{
+        let li = document.createElement("li");
+        li.innerHTML = inputBox.value; 
+        listContainer.appendChild(li); 
+
+        let span = document.createElement("span");
+        span.innerHTML = "\u00d7";
+        li.appendChild(span);
+    }
+    inputBox.value = "";
+    saveData(); 
+    
+}
+
+listContainer.addEventListener("click", function(e){
+if(e.target.tagName ==="LI"){
+    e.target.classList.toggle("checked");
+    saveData();
+}
+else if(e.target.tagName === "SPAN"){
+    e.target.parentElement.remove();
+    saveData();
+}
+},false);
+
+function saveData(){
+    localStorage.setItem("data", listContainer.innerHTML);
+}
+
+function showTasks(){
+    listContainer.innerHTML = localStorage.getItem("data");
+}
+
+showTasks();
+     -->
+    </textarea>
+  </section>
+
+</body>
+</html>
