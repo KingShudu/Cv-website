@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake game App</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #282c34, #1a1d23);
+      color: #fff;
+    }
+
+    header {
+      background: linear-gradient(to right, #4e54c8, #8f94fb);
+      padding: 10px;
+      text-align: center;
+    }
+
+    section {
+      padding: 20px;
+      text-align: center;
+    }
+
+    video {
+      max-width: 100%;
+      height: auto;
+    }
+
+    textarea {
+      width: 100%;
+      height: 300px;
+      margin-top: 20px;
+      background: #333;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Snake game App</h1>
+  </header>
+
+  <section>
+    <h2>Snake game App in Action</h2>
+    <video loop controls>
+      <source src="Snake game.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <h2>Code</h2>
+    <textarea readonly>
+      This is the code for the above snake game application this code below 
+      you'll be able to remake your the snake game. 
+     <!-- // Snake game.cpp : This file contains the 'main' function. Program execution begins and ends there.
+
+
+#include <iostream>
+#include <conio.h>
+#include <thread>
+using namespace std; 
+// gameove variable to test if the game is over or not 
+bool gameOver; 
+const int width = 20;
+const int height = 20;
+int x, y, fruitX, fruitY, currentScore; 
+
+//creatomg the array that will hold the tail pieces 
+int tailX[100], tailY[100];
+// tail length
+int nTail;
+enum eDirection {
+	STOP = 0, LEFT, RIGHT, UP, DOWN
+};
+//object enum for direction 
+eDirection dir; 
+
+void setup()
+{
+	gameOver = false; 
+	dir = STOP; 
+	//starts the head of the snake in the center 
+	x = width / 2; 
+	y = height / 2;
+	//places the fruit in a rand position in the map 
+	fruitX = rand() % width; 
+	fruitY = rand() % height; 
+	currentScore = 0; 
+}
+
+void draw()
+{
+	system("cls"); //clears console window 
+	// create the borders of the game 
+	for (int i= 0; i < width+1; i++)
+		cout << "#";
+
+	cout << endl;
+	// this is the code to make the center walls of the game 
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < width; j++)
+		{
+			if (j == 0)
+			{
+				cout << "#"; 
+			}
+			//creates the head of the snake 
+			if (i == y && j == x)
+				cout << "0";
+			//creates the fruit 
+			else if (i == fruitY && j == fruitX)
+				cout << "f";
+			else
+			{
+				bool print = false;
+				for(int k =0; k <nTail; k++)
+				{
+					// to test if the tail segment was printed 
+					
+					if (tailX[k] == j && tailY[k] == i)
+					{
+						cout << "o";
+						print = true; 
+					}		
+				}
+				if (!print)
+				{
+					cout << " ";
+				}
+			}
+			
+
+			if (j == width - 1) {
+				cout << "#"; 
+			}
+		}
+		cout << endl; 
+	}
+
+	for (int i = 0; i < width+1; i++)
+		cout << "#";
+	cout << endl;
+	
+	// displays the score of the player 
+	for (int i = 0; i < 10; i++)
+		cout << "#";
+	cout << endl;
+	cout << "Score: " << currentScore<<endl;
+	for (int i = 0; i < 10; i++)
+		cout << "#";
+}
+
+void input()
+{
+	if (_kbhit())
+	{
+		switch (_getch())
+		{
+		case 'a':
+			dir = LEFT;
+			break;
+		case 'd':
+			dir = RIGHT; 
+			break; 
+		case 'w':
+			dir = UP; 
+			break; 
+		case 's':
+			dir = DOWN;
+			break;
+		case 'x':
+			gameOver = true;
+			break;
+		}
+
+		
+	}
+}
+
+void logic()
+{
+	// keeps track of the previous location of the tail 
+	int prevX = tailX[0];
+	int prevY = tailY[0];
+	int prev2X, prev2Y; 
+	tailX[0] = x;
+	tailY[0] = y;
+	//move the tail function 
+	for (int i = 1; i < nTail;i++)
+	{
+		//the logic that generates a tail 
+		prev2X = tailX[i];
+		prev2Y = tailY[i];
+		tailX[i] = prevX;
+		tailY[i] = prevY;
+		prevX = prev2X;
+		prevY = prev2Y; 
+
+	}
+	// the switch contains the cordinates based on the direction chosen 
+	switch (dir)
+	{
+	case LEFT:
+		x--;
+		break;
+	case RIGHT:
+		x++;
+		break;
+	case UP:
+		y--;
+		break;
+	case DOWN:
+		y++;
+		break; 
+	default:
+		break;
+	}
+	// game terminates on hitting the wall 
+	if (x > width || x < 0|| y> height || y <0)
+	{
+		gameOver = true;
+	}
+	//shows the code for the head hitting the body 
+	for (int w = 0; w < nTail;w++)
+	{
+		if (tailX[w] == x && tailY[w] == y)
+		{
+			gameOver = true;
+		}
+	}
+	//this function defines the eating increasing the score and the fruit spawnning somewhere else 
+	if (x == fruitX && y == fruitY)
+	{
+		currentScore += 100; 
+		fruitX = rand() % width;
+		fruitY = rand() % height; 
+		//this is the length of the tail increasing 
+		nTail++;
+	}
+}
+
+int main()
+{
+	setup(); 
+	while (!gameOver)
+	{
+		draw();
+		input();
+		logic(); 
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+		//sleep(10) slows down the game 
+	}
+}
+
+// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
+// Debug program: F5 or Debug > Start Debugging menu
+
+// Tips for Getting Started: 
+//   1. Use the Solution Explorer window to add/manage files
+//   2. Use the Team Explorer window to connect to source control
+//   3. Use the Output window to see build output and other messages
+//   4. Use the Error List window to view errors
+//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
+//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+  -->
+    </textarea>
+  </section>
+
+</body>
+</html>
