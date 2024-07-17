@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email & Password generator for new employees</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #282c34, #1a1d23);
+      color: #fff;
+    }
+
+    header {
+      background: linear-gradient(to right, #4e54c8, #8f94fb);
+      padding: 10px;
+      text-align: center;
+    }
+
+    section {
+      padding: 20px;
+      text-align: center;
+    }
+
+    video {
+      max-width: 100%;
+      height: auto;
+    }
+
+    textarea {
+      width: 100%;
+      height: 300px;
+      margin-top: 20px;
+      background: #333;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Email & Password generator for new employees</h1>
+  </header>
+
+  <section>
+    <h2>Email & Password generator for new employees App in Action</h2>
+    <video loop controls>
+      <source src="Email and pass gen.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <h2>Code</h2>
+    <textarea readonly>
+      This is the code for the above Email & Password generator for new employees application this code below, 
+      you'll be able to recreate the Email & Password generator for new employees application 
+     <!-- 
+      --- this is the object class  
+     import java.util.*;
+import java.lang.Math;
+
+public class EmailCreator {
+	private String firstName;
+	private String lastName; 
+	private String department; 
+	final private String companyName = "Linkfields";
+	private String generatedPassword; 
+	final int mailBoxCapacity = 100; 
+	private String personalEmail; 
+	private String workMail; 
+	
+	
+	public EmailCreator()
+	{
+		this.firstName = " ";
+		this.lastName = " ";
+		this.department = " ";
+		this.personalEmail = " ";
+		
+	}
+	
+	//get and set first name
+	public String getFirstname()
+	{
+		return this.firstName; 
+	}
+	public void setFirstname(String firstName)
+	{
+		this.firstName = firstName; 
+	}
+	
+	//get and set last name
+	public String getLastname()
+	{
+		return this.lastName;
+	}
+	public void setLastname(String lastName)
+	{
+		this.lastName = lastName; 
+	}
+	
+	//get and set department 
+	public String getDepartment()
+	{
+		return this.department; 
+	}
+	public void setDepartment(String departmentName)
+	{
+		this.department = departmentName; 
+	}
+	
+	//get and set personal email
+	public String getPersonalEmail()
+	{
+		return this.personalEmail; 
+	}
+	public void setPersonalEmail(String personalEmail)
+	{
+		this.personalEmail = personalEmail; 
+	}
+	
+	//get mailbox capacity 
+	public int getMailBoXCapacity()
+	{
+		return this.mailBoxCapacity; 
+	}
+	
+	//get companyName
+	public String getCompanyName()
+	{
+		return this.companyName; 
+	}
+	
+	public String getWorkMail()
+	{
+		workMail = getFirstname()+"."+getLastname()+"@"+getDepartment()+"."+
+				getCompanyName()+".com";
+		
+		return workMail;
+	}
+	
+	//get password 
+	public String getPassword()
+	{
+		this.generatedPassword = passwordGenerator();
+		return this.generatedPassword; 
+	}
+	//password generator 
+	public String passwordGenerator()
+	{
+		int passwordLength= 10; 
+		String generatedPassword = " ";
+		String [] newPassword = new String[passwordLength];
+		String [] charactersToUseInArray = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V",
+				"W","X","Y","Z","0","1","2","3","4","5","6","7","8","9","!","@","#","$","%","/"};
+		
+		
+		for(int i =0;i<passwordLength;i++)
+		{
+			int randomNumber = (int)(Math.random()*100);
+			
+			if(randomNumber > charactersToUseInArray.length)
+			{
+				while(randomNumber > charactersToUseInArray.length)
+				{
+					randomNumber /= 2; 
+					Math.round(randomNumber);
+				}
+				
+			} 
+			
+			newPassword[i] = charactersToUseInArray[randomNumber-1];
+			generatedPassword = String.join("", newPassword);
+		}
+		
+		
+		return generatedPassword; 
+	}
+} 
+---- this is the driver class or main class 
+import java.util.*;
+import javax.swing.JOptionPane;
+
+public class EmailDriverClass {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String firstName;
+		String lastName; 
+		String department; 
+		String personalMail; 
+		String usersPassword; 
+		EmailCreator obj1 = new EmailCreator();
+		
+		firstName = JOptionPane.showInputDialog("Enter your first name:");
+		obj1.setFirstname(firstName);
+			
+		lastName = JOptionPane.showInputDialog("Enter your last name:");
+		obj1.setLastname(lastName);
+		
+		department = JOptionPane.showInputDialog("Enter your department:");
+		obj1.setDepartment(department);
+		
+		personalMail = JOptionPane.showInputDialog("Enter your personal mail:");
+		obj1.setPersonalEmail(personalMail);
+		
+		usersPassword = obj1.getPassword();
+		
+		JOptionPane.showMessageDialog(null, obj1.getWorkMail(), "Here is your new "+ obj1.getCompanyName()+" Email",  JOptionPane.INFORMATION_MESSAGE );
+		
+		JOptionPane.showMessageDialog(null, usersPassword,"Here is your secret password", JOptionPane.INFORMATION_MESSAGE);
+		
+		JOptionPane.showMessageDialog(null, "Name: \t"+obj1.getFirstname()+"\n"+
+											"Surname: \t"+obj1.getLastname()+"\n"+
+											"Email: \t"+obj1.getPersonalEmail()+"\n"+
+											"Work mail: \t"+obj1.getWorkMail()+"\n"+
+											"Password: \t"+"**************"+"\n"+
+											"Mail Capacity: \t"+obj1.mailBoxCapacity +"GB"
+		,"Here are your full credentials", JOptionPane.INFORMATION_MESSAGE);
+		
+	}
+
+}    
+-->
+    </textarea>
+  </section>
+
+</body>
+</html>
